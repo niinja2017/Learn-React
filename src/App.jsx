@@ -1,4 +1,7 @@
+import ExamFive from "./example/examFive"
+import ExamFour from "./example/examFour"
 import ExamOne from "./example/examOne"
+import ExamSix from "./example/examSix"
 import ExamThree from "./example/examThree"
 import ExamTwo from "./example/examTwo"
 
@@ -8,7 +11,10 @@ function App() {
         <div>
             {/* <ExamOne /> */}
             {/* <ExamTwo /> */}
-            <ExamThree/>
+            {/* <ExamThree/> */}
+            {/* <ExamFour/> */}
+            {/* <ExamFive/> */}
+            <ExamSix/>
         </div>
     )
 }
