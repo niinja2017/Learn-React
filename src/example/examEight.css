@@ -1,0 +1,11 @@
+.blue{
+    color: blue;
+}
+
+.title {
+    color: red;
+}
+
+.titleHover:hover{
+    color: blue;
+}
