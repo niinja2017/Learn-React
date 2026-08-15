@@ -59,18 +59,6 @@ const ExamTen = () => {
     //     document.title = title == 'Sobhan' ? 'Hello Subhan' : 'React App'
     // } , [title])
 
-    //////////////////////////////////////////////////////////////////////////
-    const [number , setNumber] = useState(0)
-    useEffect(() => {
-        let timer = setInterval(() => {
-            setNumber(number + 1)
-        }, 1000);
-
-        return() => {
-            clearInterval(timer)
-        }
-    } , [])
-
 
     return (
         <>
@@ -112,12 +100,6 @@ const ExamTen = () => {
 
             {/* exam three */}
             {/* <input type="text" onChange={(e) => setTitle(e.target.value)} /> */}
-
-            {/* exam four */}
-            <button onClick={() => setNumber(number + 1)}>
-                +
-            </button>
-            <p>{number}</p>
         </>
     )
 }
