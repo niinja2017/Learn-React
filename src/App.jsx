@@ -1,4 +1,5 @@
 import ExamEight from "./example/examEight"
+import ExamEleven from "./example/examEleven"
 import ExamFive from "./example/examFive"
 import ExamFour from "./example/examFour"
 import ExamNine from "./example/examNine"
@@ -7,10 +8,11 @@ import ExamSeven from "./example/examSeven"
 import ExamSix from "./example/examSix"
 import ExamTen from "./example/examTen"
 import ExamThree from "./example/examThree"
+import ExamTwelve from "./example/examTwelve"
 import ExamTwo from "./example/examTwo"
 
 function App() {
-    
+
     return (
         <div>
             {/* <ExamOne /> */}
@@ -22,7 +24,9 @@ function App() {
             {/* <ExamSeven/> */}
             {/* <ExamEight/> */}
             {/* <ExamNine/> */}
-            <ExamTen/>
+            {/* <ExamTen/> */}
+            {/* <ExamEleven/> */}
+            <ExamTwelve/>
         </div>
     )
 }
