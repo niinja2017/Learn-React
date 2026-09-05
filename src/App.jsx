@@ -14,6 +14,8 @@ import ExamTwelve from "./example/examTwelve"
 import ExamTwo from "./example/examTwo"
 import ExamFourteen from "./example/examFourteen"
 import { useEffect, useState } from "react"
+import ExamFifteen from "./example/examfifteen"
+import UserContext from "./context/UserContext"
 
 function App() {
     const [name, setName] = useState('')
@@ -66,7 +68,7 @@ function App() {
             if (!res.ok) throw new Error("this is an error");
             setList(prev => prev.map(item =>
                 item.id == id
-                    ? {...item , name : newValue}
+                    ? { ...item, name: newValue }
                     : item
             ))
             setEditMode(null)
@@ -86,6 +88,12 @@ function App() {
             console.log(error.message)
         }
     }
+
+    const [user, setUser] = useState({
+        name: 'Sobhan',
+        age: 20
+    })
+
     return (
         <div>
             {/* <ToastContainer/> */}
@@ -103,8 +111,11 @@ function App() {
             {/* <ExamTwelve/> */}
             {/* <ExamThirteen /> */}
             {/* <ExamFourteen/> */}
+            <UserContext.Provider value={{user , setUser}}>
+                <ExamFifteen />
+            </UserContext.Provider>
 
-            <form action="" onSubmit={handleSubmit}>
+            {/* <form action="" onSubmit={handleSubmit}>
                 <input value={name} onChange={(e) => setName(e.target.value)} type="text" />
                 <button type="submit">submit</button>
             </form>
@@ -127,7 +138,7 @@ function App() {
                         }
                     </div>
                 )
-            }
+            } */}
         </div>
     )
 }
