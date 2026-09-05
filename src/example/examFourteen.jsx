@@ -26,7 +26,7 @@ const ExamFourteen = () => {
         }
         if (!data.name.trim() || !data.email.trim()) return
         try {
-            const res = await fetch('https://6a8eb04ea12b7de8cc0edfbd.mockapi.io/learn-api', {
+            const res = await fetch('https://6a92ef6225936d5660f07fc4.mockapi.io/users', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(data)
@@ -59,12 +59,13 @@ const ExamFourteen = () => {
 
     const getUsers = async () => {
         try {
-            const res = await fetch('https://6a8eb04ea12b7de8cc0edfbd.mockapi.io/learn-api', {
+            const res = await fetch('https://6a92ef6225936d5660f07fc4.mockapi.io/users', {
                 method: 'GET',
                 headers: { 'content-type': 'application/json' }
             })
             if (!res.ok) return
             const data = await res.json()
+            console.log(data)
             dispatch({ type: 'SetUser', payload: data })
         } catch (error) {
             console.log(error)
@@ -77,7 +78,7 @@ const ExamFourteen = () => {
 
     const deleteItemHandler = async (id) => {
         try {
-            const res = await fetch(`https://6a8eb04ea12b7de8cc0edfbd.mockapi.io/learn-api/${id}`, {
+            const res = await fetch(`https://6a92ef6225936d5660f07fc4.mockapi.io/users/${id}`, {
                 method: 'DELETE'
             })
 

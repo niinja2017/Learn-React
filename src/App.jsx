@@ -13,12 +13,82 @@ import ExamThree from "./example/examThree"
 import ExamTwelve from "./example/examTwelve"
 import ExamTwo from "./example/examTwo"
 import ExamFourteen from "./example/examFourteen"
+import { useEffect, useState } from "react"
 
 function App() {
+    const [name, setName] = useState('')
+    const [list, setList] = useState([])
+    const [editMode, setEditMode] = useState(null)
+    const [newValue, setNewValue] = useState('')
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const value = {
+            name: name
+        }
+        try {
+            const res = await fetch('https://6a92ef6225936d5660f07fc4.mockapi.io/name', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(value)
+            })
+            if (!res.ok) throw new Error("this is an error");
+            const data = await res.json()
+            setList(prev => [...prev, data])
+            setName('')
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+    const getData = async () => {
+        try {
+            const res = await fetch('https://6a92ef6225936d5660f07fc4.mockapi.io/name', {
+                method: 'GET',
+                headers: { 'content-type': 'application/json' },
+            })
+            if (!res.ok) throw new Error("this is an error");
+            const data = await res.json()
+            setList(data)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+    useEffect(() => {
+        getData()
+    }, [])
 
+    const changeData = async (id) => {
+        try {
+            const res = await fetch(`https://6a92ef6225936d5660f07fc4.mockapi.io/name/${id}`, {
+                method: 'PUT',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ name: newValue })
+            })
+            if (!res.ok) throw new Error("this is an error");
+            setList(prev => prev.map(item =>
+                item.id == id
+                    ? {...item , name : newValue}
+                    : item
+            ))
+            setEditMode(null)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    const deleteHandle = async (id) => {
+        try {
+            const res = await fetch(`https://6a92ef6225936d5660f07fc4.mockapi.io/name/${id}`, {
+                method: 'DELETE'
+            })
+            if (!res.ok) throw new Error("this is an error");
+            setList(prev => prev.filter(item => item.id !== id))
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
     return (
         <div>
-            <ToastContainer/>
+            {/* <ToastContainer/> */}
             {/* <ExamOne /> */}
             {/* <ExamTwo /> */}
             {/* <ExamThree/> */}
@@ -32,7 +102,32 @@ function App() {
             {/* <ExamEleven/> */}
             {/* <ExamTwelve/> */}
             {/* <ExamThirteen /> */}
-            <ExamFourteen/>
+            {/* <ExamFourteen/> */}
+
+            <form action="" onSubmit={handleSubmit}>
+                <input value={name} onChange={(e) => setName(e.target.value)} type="text" />
+                <button type="submit">submit</button>
+            </form>
+
+            {
+                list.map(item =>
+                    <div key={item.id}>
+                        {
+                            editMode == item.id ?
+                                <div>
+                                    <input type="text" value={newValue} onChange={(e) => setNewValue(e.target.value)} />
+                                    <button onClick={() => setEditMode(null)}>Delete</button>
+                                    <button onClick={() => changeData(item.id)}>EditMode</button>
+                                </div>
+                                : <div>
+                                    <h2>{item.name}</h2>
+                                    <button onClick={() => deleteHandle(item.id)}>Delete</button>
+                                    <button onClick={() => setEditMode(item.id)}>EditMode</button>
+                                </div>
+                        }
+                    </div>
+                )
+            }
         </div>
     )
 }
